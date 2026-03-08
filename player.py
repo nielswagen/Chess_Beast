@@ -1,29 +1,20 @@
 from __future__ import annotations
-
-from dataclasses import dataclass
 from typing import Optional, List, Tuple
-
 import chess
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
-
 from chess_tournament.players import Player
 
 
 # instellingen voor de zoekstrategie
-@dataclass(frozen=True)
 class SearchConfig:
-    top_k: int = 5
-    opp_top_k: int = 5
-    depth: int = 3
-
-    # in het eindspel gaan we iets dieper zoeken
-    endgame_depth: int = 4
-    endgame_threshold: int = 10
-
-    # veiligheidslimiet voor het aantal zetten dat we evalueren
-    max_legal: int = 80
-
+    def __init__(self):
+        self.top_k = 5
+        self.opp_top_k = 5
+        self.depth = 3
+        self.endgame_depth = 4
+        self.endgame_threshold = 10
+        self.max_legal = 80
 
 #  waardes voor stukken
 PIECE_VALUES = {
